@@ -12,7 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @AllArgsConstructor
 @Data
-@Entity(name = "User")
+@Entity(name = "Users")
 @NoArgsConstructor
 public class UserEntity {
 
