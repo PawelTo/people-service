@@ -30,6 +30,14 @@ public class UserEventHandler {
         userMap.replace(userId,user);
     }
 
+    @EventHandler
+    public void on (UserChangedOrganizationEvent userChangedOrganizationEvent){
+        String  userId = userChangedOrganizationEvent.getUserId();
+        User user = userMap.get(userId);
+        user.setOrganization(userChangedOrganizationEvent.getOrganization());
+        userMap.replace(userId,user);
+    }
+
     @QueryHandler
     public List<User> handle (FindAllUsersQuery findAllUsersQuery){
         return new ArrayList<>(userMap.values());
