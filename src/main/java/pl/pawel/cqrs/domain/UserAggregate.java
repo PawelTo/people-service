@@ -1,11 +1,13 @@
 package pl.pawel.cqrs.domain;
 
 import org.axonframework.commandhandling.CommandHandler;
-import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
+
+import static java.lang.String.valueOf;
+import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Aggregate
 public class UserAggregate {
@@ -17,15 +19,37 @@ public class UserAggregate {
     private String surname;
 
     @CommandHandler
-    public UserAggregate(CreateUserCommand createUserCommand){
-        AggregateLifecycle.apply(new UserCreatedEvent(createUserCommand.getUserId(), createUserCommand.getName()));
+    public UserAggregate(CreateUserCommand createUserCommand) {
+        apply(new UserCreatedEvent(createUserCommand.getUserId(), createUserCommand.getName()));
     }
 
     @EventSourcingHandler
-    public void on(UserCreatedEvent userCreatedEvent){
-        this.id = userCreatedEvent.getUserId();
+    public void on(UserCreatedEvent userCreatedEvent) {
+        id = userCreatedEvent.getUserId();
         name = userCreatedEvent.getName();
     }
 
-    protected UserAggregate(){}
+    @CommandHandler
+    public void handle(ChangeUserNameCommand changeUserNameCommand) {
+        apply(new UserChangedNameEvent(changeUserNameCommand.getUserId(), changeUserNameCommand.getName(), changeUserNameCommand.getSurname()));
+    }
+
+    @EventSourcingHandler
+    public void on(UserChangedNameEvent userChangedNameEvent) {
+        name = userChangedNameEvent.getName();
+        surname = userChangedNameEvent.getSurname();
+    }
+
+    @CommandHandler
+    public void handle(ChangeOrganizationCommand changeOrganizationCommand) {
+        apply(new UserChangedOrganizationEvent(changeOrganizationCommand.getUserId(), changeOrganizationCommand.getOrganization()));
+    }
+
+    @EventSourcingHandler
+    public void on(UserChangedOrganizationEvent userChangedOrganizationEvent) {
+        organization = valueOf(userChangedOrganizationEvent.getOrganization());
+    }
+
+    protected UserAggregate() {
+    }
 }

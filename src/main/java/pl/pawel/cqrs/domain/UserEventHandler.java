@@ -21,6 +21,15 @@ public class UserEventHandler {
         userMap.put(userId, new User(valueOf(userId), userCreatedEvent.getName(), null, null));
     }
 
+    @EventHandler
+    public void on (UserChangedNameEvent userChangedNameEvent){
+        String  userId = userChangedNameEvent.getUserId();
+        User user = userMap.get(userId);
+        user.setName(userChangedNameEvent.getName());
+        user.setSurname(userChangedNameEvent.getSurname());
+        userMap.replace(userId,user);
+    }
+
     @QueryHandler
     public List<User> handle (FindAllUsersQuery findAllUsersQuery){
         return new ArrayList<>(userMap.values());

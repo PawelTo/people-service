@@ -5,14 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.*;
-import pl.pawel.cqrs.domain.CreateUserCommand;
-import pl.pawel.cqrs.domain.FindAllUsersQuery;
-import pl.pawel.cqrs.domain.User;
+import pl.pawel.cqrs.domain.*;
 
 import java.util.List;
 
 import static java.lang.String.valueOf;
 import static org.axonframework.messaging.responsetypes.ResponseTypes.multipleInstancesOf;
+import static pl.pawel.cqrs.domain.User.Organization.valueOf;
 
 @RequestMapping(V1UserController.API_PATH)
 @RequiredArgsConstructor
@@ -26,12 +25,23 @@ public class V1UserController {
     private final QueryGateway queryGateway;
 
     @GetMapping()
-    public List<User> fetchAll(){
+    public List<User> fetchAll() {
         return queryGateway.query(new FindAllUsersQuery(), multipleInstancesOf(User.class)).join();
     }
 
     @PostMapping("{id}")
-    public void createUser(@PathVariable long id){
+    public void createUser(@PathVariable long id) {
         commandGateway.send(new CreateUserCommand(valueOf(id), "imie"));
+    }
+
+    @PutMapping("{id}")
+    public void changeUser(@PathVariable long id, @RequestParam(required = false) String organization,
+                           @RequestParam(required = false) String name, @RequestParam(required = false) String surname) {
+        if (organization != null) {
+            commandGateway.send(new ChangeOrganizationCommand(valueOf(id), valueOf(organization)));
+        }
+        if (name != null || surname != null) {
+            commandGateway.send(new ChangeUserNameCommand(valueOf(id), name, surname));
+        }
     }
 }
