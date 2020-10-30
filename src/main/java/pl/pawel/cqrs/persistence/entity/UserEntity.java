@@ -1,4 +1,4 @@
-package pl.pawel.cqrs.persistence;
+package pl.pawel.cqrs.persistence.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

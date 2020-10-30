@@ -1,6 +1,7 @@
 package pl.pawel.cqrs.domain;
 
 import lombok.RequiredArgsConstructor;
+import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.messaging.Message;
 import org.axonframework.queryhandling.QueryGateway;
