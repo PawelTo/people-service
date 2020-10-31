@@ -6,6 +6,10 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.*;
 import pl.pawel.cqrs.domain.*;
+import pl.pawel.cqrs.domain.commands.ChangeOrganizationCommand;
+import pl.pawel.cqrs.domain.commands.ChangeUserNameCommand;
+import pl.pawel.cqrs.domain.commands.CreateUserCommand;
+import pl.pawel.cqrs.domain.queries.FindUserQuery;
 
 import java.util.List;
 
@@ -26,7 +30,7 @@ public class V1UserController {
 
     @GetMapping()
     public List<User> fetchAll() {
-        return queryGateway.query(new FindAllUsersQuery(), multipleInstancesOf(User.class)).join();
+        return queryGateway.query(new FindUserQuery(), multipleInstancesOf(User.class)).join();
     }
 
     @PostMapping("{id}")

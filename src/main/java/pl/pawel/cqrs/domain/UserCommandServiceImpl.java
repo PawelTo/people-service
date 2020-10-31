@@ -3,6 +3,7 @@ package pl.pawel.cqrs.domain;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
+import pl.pawel.cqrs.domain.commands.CreateUserCommand;
 
 import java.util.concurrent.CompletableFuture;
 

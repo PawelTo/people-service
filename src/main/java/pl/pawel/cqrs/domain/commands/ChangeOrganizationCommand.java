@@ -1,12 +1,13 @@
-package pl.pawel.cqrs.domain;
+package pl.pawel.cqrs.domain.commands;
 
 import lombok.Data;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
+import pl.pawel.cqrs.domain.User;
 
 @Data
-public class CreateUserCommand {
+public class ChangeOrganizationCommand {
 
     @TargetAggregateIdentifier
     private final String userId;
-    private final String name;
+    private final User.Organization organization;
 }

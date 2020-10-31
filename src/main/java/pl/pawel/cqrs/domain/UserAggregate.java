@@ -3,8 +3,13 @@ package pl.pawel.cqrs.domain;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
-import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
+import pl.pawel.cqrs.domain.commands.ChangeOrganizationCommand;
+import pl.pawel.cqrs.domain.commands.ChangeUserNameCommand;
+import pl.pawel.cqrs.domain.commands.CreateUserCommand;
+import pl.pawel.cqrs.domain.events.UserChangedNameEvent;
+import pl.pawel.cqrs.domain.events.UserChangedOrganizationEvent;
+import pl.pawel.cqrs.domain.events.UserCreatedEvent;
 
 import static java.lang.String.valueOf;
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;

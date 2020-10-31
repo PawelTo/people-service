@@ -4,14 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Service;
+import pl.pawel.cqrs.domain.events.UserChangedNameEvent;
+import pl.pawel.cqrs.domain.events.UserChangedOrganizationEvent;
+import pl.pawel.cqrs.domain.events.UserCreatedEvent;
+import pl.pawel.cqrs.domain.queries.FindUserQuery;
 import pl.pawel.cqrs.persistence.entity.UserEntity;
 import pl.pawel.cqrs.persistence.repository.UserEntityRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static java.lang.Long.valueOf;
 import static java.util.stream.Collectors.toList;
@@ -48,16 +49,29 @@ public class UserProjection {
     }
 
     @QueryHandler
-    public List<User> handle(FindAllUsersQuery findAllUsersQuery) {
+    public List<User> handle(FindUserQuery findUserQuery) {
         return userEntityRepository.findAll()
                 .stream()
                 .map(userEntity ->
                         User.builder()
                                 .id(userEntity.getId())
                                 .name(userEntity.getName())
-                                .organization(User.Organization.valueOf(userEntity.getOrganization()))
+                                .organization(userEntity.getOrganization() == null ? null : User.Organization.valueOf(userEntity.getOrganization()))
                                 .surname(userEntity.getSurname())
                                 .build())
                 .collect(toList());
+    }
+
+    @QueryHandler
+    public User handleByID(FindUserQuery findUserQuery) {
+        return userEntityRepository.findById(valueOf(findUserQuery.getId()))
+                .map(userEntity ->
+                        User.builder()
+                                .id(userEntity.getId())
+                                .name(userEntity.getName())
+                                .organization(userEntity.getOrganization() == null ? null : User.Organization.valueOf(userEntity.getOrganization()))
+                                .surname(userEntity.getSurname())
+                                .build())
+                .orElse(null);
     }
 }

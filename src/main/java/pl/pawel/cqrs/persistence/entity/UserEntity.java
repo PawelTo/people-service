@@ -16,7 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 public class UserEntity {
 
-    @GeneratedValue(strategy = IDENTITY)
+    //@GeneratedValue(strategy = IDENTITY)
     @Id
     private Long id;
 
