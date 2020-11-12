@@ -54,7 +54,7 @@ public class UserProjection {
 
     @QueryHandler
     public List<User> handle(FindUserQuery findUserQuery) {
-        log.info("Query handler - findUserQuery");
+        log.info("Query handler - findUserQuery all");
         return userEntityRepository.findAll()
                 .stream()
                 .map(userEntity ->
@@ -69,7 +69,7 @@ public class UserProjection {
 
     @QueryHandler
     public User handleByID(FindUserQuery findUserQuery) {
-        log.info("Query handler - findUserQuery");
+        log.info("Query handler - findUserQuery by Id");
         return userEntityRepository.findById(valueOf(findUserQuery.getId()))
                 .map(userEntity ->
                         User.builder()
