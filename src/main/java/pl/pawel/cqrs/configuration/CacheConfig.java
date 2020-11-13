@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import java.util.List;
 import static java.time.Duration.ofMinutes;
 
 @Configuration
+@EnableCaching
 public class CacheConfig extends CachingConfigurerSupport {
 
     public static final String NAMES = "NAMES";
