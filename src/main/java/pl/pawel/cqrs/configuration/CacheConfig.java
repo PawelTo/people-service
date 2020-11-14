@@ -15,12 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
 
 @Configuration
 @EnableCaching
 public class CacheConfig extends CachingConfigurerSupport {
 
     public static final String NAMES = "NAMES";
+    public static final String NUMBERS = "NUMBERS";
 
     private final SimpleCacheManager cacheManager = new SimpleCacheManager();
     private final List<Cache> caches = new ArrayList<>();
@@ -29,6 +31,7 @@ public class CacheConfig extends CachingConfigurerSupport {
     @Override
     public CacheManager cacheManager() {
         addCache(NAMES, ofMinutes(10));
+        addCache(NUMBERS, ofSeconds(30));
         return cacheManager;
     }
 
