@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.pawel.cqrs.controllers.form.PersonForm;
 import pl.pawel.cqrs.controllers.view.PersonView;
-import pl.pawel.cqrs.service.PeopleService;
+import pl.pawel.cqrs.service.PersonService;
 
 @RequestMapping(V1PeopleController.API_PATH)
 @RequiredArgsConstructor
@@ -18,15 +18,15 @@ public class V1PeopleController {
 
     public static final String API_PATH = "/api/v1/people";
 
-    private final PeopleService peopleService;
+    private final PersonService personService;
 
     @PostMapping
     public PersonView add(PersonForm personForm) {
-        return peopleService.createPerson(personForm);
+        return personService.createPerson(personForm);
     }
 
     @GetMapping
     public PersonView fetchAll() {
-        return peopleService.getAllPeople();
+        return personService.getAllPeople();
     }
 }

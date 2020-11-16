@@ -8,5 +8,6 @@ public class PersonView {
     private String address;
     private int age;
     private String name;
+    private int salary;
     private String surname;
 }
