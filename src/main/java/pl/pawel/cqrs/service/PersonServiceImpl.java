@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.pawel.cqrs.controllers.form.PersonForm;
 import pl.pawel.cqrs.controllers.view.PersonView;
-import pl.pawel.cqrs.persistence.repository.PersonRepository;
+import pl.pawel.cqrs.persistence.repository.PersonEntityRepository;
 
 import java.util.List;
 
@@ -15,18 +15,18 @@ import static pl.pawel.cqrs.controllers.view.PersonView.from;
 @Service
 public class PersonServiceImpl implements PersonService {
 
-    private PersonRepository personRepository;
+    private final PersonEntityRepository personEntityRepository;
 
     @Override
     public PersonView createPerson(PersonForm personForm) {
-        return from(personRepository.save(
+        return from(personEntityRepository.save(
                                           personForm.toPersonEntity()
         ));
     }
 
     @Override
     public List<PersonView> getAllPeople() {
-        return personRepository.findAll().stream()
+        return personEntityRepository.findAll().stream()
                 .map(personEntity -> from(personEntity))
                 .collect(toList());
     }

@@ -11,3 +11,4 @@ public interface PersonService {
 
     List<PersonView> getAllPeople();
 }
+    

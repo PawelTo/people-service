@@ -20,7 +20,7 @@ public class PersonView {
     public static PersonView from(PersonEntity personEntity) {
         return PersonView.builder()
                          .address(personEntity.getAddress())
-                         .age(between(now(), personEntity.getPersonKey().getDateOfBirth()).getYears())
+                         .age(between(personEntity.getPersonKey().getDateOfBirth(), now()).getYears())
                          .name(personEntity.getName())
                          .salary(personEntity.getSalary())
                          .surname(personEntity.getPersonKey().getSurname())

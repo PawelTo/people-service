@@ -1,11 +1,15 @@
 package pl.pawel.cqrs.controllers.form;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.pawel.cqrs.persistence.entity.PersonEntity;
 
 import java.time.LocalDate;
 
+@AllArgsConstructor
 @Data
+@NoArgsConstructor
 public class PersonForm {
 
     private String address;

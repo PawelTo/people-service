@@ -30,9 +30,11 @@ public class PersonEntity extends Auditable<Integer> {
     private String name;
     private int salary;
 
+    @AllArgsConstructor
     @Builder
     @Data
     @Embeddable
+    @NoArgsConstructor
     public static class PersonKey implements Serializable {
         private LocalDate dateOfBirth;
         private String surname;
