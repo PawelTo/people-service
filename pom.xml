@@ -11,13 +11,12 @@
 	<groupId>test-cqrs-application</groupId>
 	<artifactId>application</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cqrs-application</name>
+	<name>people-application</name>
 	<description>Demo project for cqrs training</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		<com.github.ben-manes.caffeine.version>2.8.6</com.github.ben-manes.caffeine.version>
-		<org.axonframework.version>4.4.3</org.axonframework.version>
+		<com.github.ben-manes.caffeine.version>2.8.6</com.github.ben-manes.caffeine.version><org.axonframework.version>4.4.3</org.axonframework.version>
 		<org.hibernate-envers.version>5.4.23.Final</org.hibernate-envers.version>
 		<org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
 		<org.projectlombok.version>1.18.12</org.projectlombok.version>
@@ -35,11 +34,6 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.axonframework</groupId>
-			<artifactId>axon-spring-boot-starter</artifactId>
-			<version>${org.axonframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
