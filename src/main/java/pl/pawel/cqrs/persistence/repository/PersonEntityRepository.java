@@ -1,5 +1,6 @@
 package pl.pawel.cqrs.persistence.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import pl.pawel.cqrs.persistence.entity.PersonEntity;
@@ -28,4 +29,7 @@ public interface PersonEntityRepository extends JpaRepository<PersonEntity, Pers
             "GROUP BY p.name"
     )
     Optional<PersonAggregateStatistics> countAverageSalaryFor(String name);
+
+    @EntityGraph(attributePaths = "name")
+    List<PersonEntity> findByName(String name);
 }

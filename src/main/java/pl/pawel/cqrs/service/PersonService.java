@@ -11,7 +11,9 @@ public interface PersonService {
 
     PersonView createPerson(PersonForm personForm);
 
-    List<PersonView> getAllPeople();
+    List<PersonView> getAllByName(String name);
+
+    List<PersonView> getAll();
 
     List<PersonAggregateStatistics> getAverageSalary();
 

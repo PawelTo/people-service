@@ -27,8 +27,9 @@ public class V1PeopleController {
     }
 
     @GetMapping
-    public List<PersonView> fetchAll() {
-        return personService.getAllPeople();
+    public List<PersonView> fetchAll(@RequestParam(required = false) String name) {
+        if (name == null) return personService.getAll();
+        return personService.getAllByName(name);
     }
 
     @GetMapping(path = "/salary")

@@ -27,7 +27,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonView> getAllPeople() {
+    public List<PersonView> getAllByName(String name) {
+        return personEntityRepository.findByName(name).stream()
+                .map(personEntity -> from(personEntity))
+                .collect(toList());
+    }
+
+    @Override
+    public List<PersonView> getAll() {
         return personEntityRepository.findAll().stream()
                 .map(personEntity -> from(personEntity))
                 .collect(toList());
