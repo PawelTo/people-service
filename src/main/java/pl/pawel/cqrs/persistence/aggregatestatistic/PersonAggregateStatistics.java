@@ -8,5 +8,5 @@ import lombok.Data;
 public class PersonAggregateStatistics {
 
     private String name;
-    private int avgSalary;
+    private double avgSalary;
 }
