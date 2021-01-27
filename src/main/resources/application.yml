@@ -12,3 +12,4 @@ spring:
     properties:
       hibernate:
         default_schema: people_service
+    show-sql: true
