@@ -6,5 +6,5 @@ public interface NamesService {
     
     List<String> getAll();
     
-    void changeName(String newName, String oldName);
+    int changeName(String newName, String oldName);
 }

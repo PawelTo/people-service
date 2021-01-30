@@ -27,7 +27,6 @@ public class V1NameController {
 
     @PutMapping("/{oldName}")
     public int changeName(@PathVariable String oldName, @RequestBody String newName){
-        namesService.changeName(newName, oldName);
-        return 1;
+        return namesService.changeName(newName, oldName);
     }
 }

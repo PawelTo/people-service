@@ -37,12 +37,11 @@ public class NamesServiceImpl implements NamesService {
     }
 
     @Transactional
-    public void changeName(String newName, String oldName){
-        entityManager.createQuery("UPDATE person SET name = :newName WHERE name = :oldName")
-                .setParameter("newName", newName)
-                .setParameter("oldName", oldName)
-                .executeUpdate();
-
+    public int changeName(String newName, String oldName){
+        return entityManager.createQuery("UPDATE item SET name = :newName WHERE name = :oldName")
+                            .setParameter("newName", newName)
+                            .setParameter("oldName", oldName)
+                            .executeUpdate();
     }
 
     private void dummyMethodToTestPredicate(){
