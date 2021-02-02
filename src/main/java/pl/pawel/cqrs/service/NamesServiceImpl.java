@@ -1,6 +1,7 @@
 package pl.pawel.cqrs.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,15 @@ public class NamesServiceImpl implements NamesService {
         return entityManager.createQuery("UPDATE item SET name = :newName WHERE name = :oldName")
                             .setParameter("newName", newName)
                             .setParameter("oldName", oldName)
+                            .executeUpdate();
+    }
+
+    @Transactional
+    public int create(String description, int id, String name){
+        return entityManager.createNativeQuery("INSERT INTO {h-schema}item ( description, name) VALUES ( :description, :name)")
+                            .setParameter("description", description)
+                            //.setParameter("id", id)
+                            .setParameter("name", name)
                             .executeUpdate();
     }
 

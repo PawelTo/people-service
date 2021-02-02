@@ -7,4 +7,6 @@ public interface NamesService {
     List<String> getAll();
     
     int changeName(String newName, String oldName);
+
+    int create(String description, int id, String name);
 }
