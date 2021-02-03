@@ -3,6 +3,7 @@ package pl.pawel.cqrs.controllers;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.pawel.cqrs.persistence.entity.ItemEntity;
 import pl.pawel.cqrs.service.NamesService;
 import pl.pawel.cqrs.service.TransactionalMethodCallerService;
 
@@ -40,5 +41,10 @@ public class V1NameController {
     @PostMapping("/transactional")
     public int createTransactional(@RequestParam String description, @RequestParam int id, @RequestParam String name){
         return transactionalMethodCallerService.create(description, id, name);
+    }
+
+    @PostMapping("/transactionalJpa")
+    public ItemEntity createTransactionalJpa(@RequestParam String description, @RequestParam int id, @RequestParam String name){
+        return transactionalMethodCallerService.createJpa(description, id, name);
     }
 }
