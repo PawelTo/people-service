@@ -1,6 +1,8 @@
 package pl.pawel.cqrs.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawel.cqrs.domain.ItemCategory;
@@ -17,9 +19,10 @@ import static java.time.format.DateTimeFormatter.ofPattern;
 import static pl.pawel.cqrs.domain.ItemCategory.TECHNOLOGY;
 
 /**
- * Service which is used for learning PersistenceContext, Transactional, Resource and Lazy
+ * Service which is used for learning PersistenceContext, Transactional and Lazy
  * annotations
  */
+
 @RequiredArgsConstructor
 @Service
 public class NamesServiceImpl implements NamesService {
@@ -29,6 +32,10 @@ public class NamesServiceImpl implements NamesService {
   @PersistenceContext
   private final EntityManager entityManager;
   private final ItemService itemService;
+
+  @Autowired
+  @Lazy
+  private LazyBeanService lazyBeanService;
 
   @Override
   public List<String> getAll() {
