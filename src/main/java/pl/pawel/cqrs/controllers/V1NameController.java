@@ -47,4 +47,9 @@ public class V1NameController {
     public ItemEntity createTransactionalJpa(@RequestParam String description, @RequestParam int id, @RequestParam String name){
         return transactionalMethodCallerService.createJpa(description, id, name);
     }
+
+    @GetMapping("/testRequestAttribiutes")
+    public String testRequestAttribiutes(){
+        return namesService.requestAttributes();
+    }
 }

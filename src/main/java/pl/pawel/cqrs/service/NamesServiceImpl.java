@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import pl.pawel.cqrs.domain.ItemCategory;
 import pl.pawel.cqrs.persistence.entity.ItemEntity;
 
@@ -19,10 +21,10 @@ import static java.time.format.DateTimeFormatter.ofPattern;
 import static pl.pawel.cqrs.domain.ItemCategory.TECHNOLOGY;
 
 /**
- * Service which is used for learning PersistenceContext, Transactional and Lazy
- * annotations
+ * Service which is used for learning:
+ * - PersistenceContext, Transactional and Lazy annotations
+ * - RequestContextHolder
  */
-
 @RequiredArgsConstructor
 @Service
 public class NamesServiceImpl implements NamesService {
@@ -74,6 +76,13 @@ public class NamesServiceImpl implements NamesService {
         .category(TECHNOLOGY)
         .build();
     return itemService.save(itemEntity);
+  }
+
+  public String requestAttributes() {
+    final RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+    requestAttributes.getAttribute("test", RequestAttributes.SCOPE_REQUEST);
+    requestAttributes.setAttribute("test", null, RequestAttributes.SCOPE_SESSION);
+    return "test RequestContextHolder";
   }
 
   private void dummyMethodToTestPredicate() {

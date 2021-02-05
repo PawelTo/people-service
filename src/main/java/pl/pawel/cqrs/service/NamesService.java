@@ -13,4 +13,6 @@ public interface NamesService {
     int create(String description, int id, String name);
 
     ItemEntity createJpa(String description, int id, String name);
+
+    String requestAttributes();
 }
