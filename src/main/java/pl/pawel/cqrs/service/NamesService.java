@@ -3,10 +3,11 @@ package pl.pawel.cqrs.service;
 import pl.pawel.cqrs.persistence.entity.ItemEntity;
 
 import java.util.List;
+import pl.pawel.cqrs.service.NamesServiceImpl.CachedName;
 
 public interface NamesService {
     
-    List<String> getAll();
+    List<CachedName> getAll();
     
     int changeName(String newName, String oldName);
 

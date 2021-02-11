@@ -1,10 +1,12 @@
 package pl.pawel.cqrs.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.pawel.cqrs.persistence.entity.ItemEntity;
 import pl.pawel.cqrs.service.NamesService;
+import pl.pawel.cqrs.service.NamesServiceImpl.CachedName;
 import pl.pawel.cqrs.service.TransactionalMethodCallerService;
 
 import java.util.List;
@@ -23,8 +25,9 @@ public class V1NameController {
     private final NamesService namesService;
     private final TransactionalMethodCallerService transactionalMethodCallerService;
 
+    @Operation(summary = "get names to test caches")
     @GetMapping
-    public List<String> getAll(){
+    public List<CachedName> getAll(){
         return namesService.getAll();
     }
 

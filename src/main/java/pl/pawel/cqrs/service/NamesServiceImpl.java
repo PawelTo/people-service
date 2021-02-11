@@ -1,5 +1,6 @@
 package pl.pawel.cqrs.service;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
-import pl.pawel.cqrs.domain.ItemCategory;
 import pl.pawel.cqrs.persistence.entity.ItemEntity;
 
 import javax.persistence.EntityManager;
@@ -21,15 +21,14 @@ import static java.time.format.DateTimeFormatter.ofPattern;
 import static pl.pawel.cqrs.domain.ItemCategory.TECHNOLOGY;
 
 /**
- * Service which is used for learning:
- * - PersistenceContext, Transactional and Lazy annotations
- * - RequestContextHolder
+ * Service which is used for learning: - PersistenceContext, Transactional and Lazy annotations -
+ * RequestContextHolder
  */
 @RequiredArgsConstructor
 @Service
 public class NamesServiceImpl implements NamesService {
 
-  private List<String> names = new LinkedList<>();
+  private List<CachedName> names = new LinkedList<>();
 
   @PersistenceContext
   private final EntityManager entityManager;
@@ -40,13 +39,17 @@ public class NamesServiceImpl implements NamesService {
   private LazyBeanService lazyBeanService;
 
   @Override
-  public List<String> getAll() {
-    return createNames();
+  public List<CachedName> getAll() {
+    return createName();
   }
 
-  private List<String> createNames() {
-    names.add("Imie utworzone o: " + ofPattern("YYYY-MM-DD HH:mm:ss")
-        .format(now()));
+  public List<CachedName> createName() {
+    CachedName cachedName = CachedName.builder()
+        .name("Imie utworzone o: " + ofPattern("YYYY-MM-DD HH:mm:ss")
+            .format(now()))
+        .id(names.size())
+        .build();
+    names.add(cachedName);
     return names;
   }
 
@@ -87,5 +90,12 @@ public class NamesServiceImpl implements NamesService {
 
   private void dummyMethodToTestPredicate() {
     Predicate<String> isShorterThan2 = (word) -> word.length() < 2;
+  }
+
+  @Builder(toBuilder = true)
+  public static class CachedName {
+
+    int id;
+    String name;
   }
 }
