@@ -21,7 +21,7 @@ import static java.time.Duration.ofSeconds;
 @EnableCaching
 public class CacheConfig extends CachingConfigurerSupport {
 
-    public static final String NAMES = "NAMES";
+    public static final String NAMES = "names";
     public static final String NUMBERS = "NUMBERS";
 
     private final SimpleCacheManager cacheManager = new SimpleCacheManager();

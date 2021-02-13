@@ -1,8 +1,11 @@
 package pl.pawel.cqrs.controllers;
 
+import static org.springframework.http.ResponseEntity.*;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.pawel.cqrs.persistence.entity.ItemEntity;
 import pl.pawel.cqrs.service.NamesService;
@@ -31,7 +34,27 @@ public class V1NameController {
         return namesService.getAll();
     }
 
-    @PutMapping("/{oldName}")
+    @Operation(summary = "get names by id to test caches")
+    @GetMapping("/{id}")
+    public ResponseEntity<CachedName> getById(@PathVariable int id){
+        return namesService.getById(id)
+            .map(ResponseEntity::ok)
+            .orElse(notFound().build());
+    }
+
+    @Operation(summary = "create to test caches")
+    @PostMapping()
+    public CachedName createName(@RequestBody int id){
+        return namesService.createName(id);
+    }
+
+    @Operation(summary = "update to test caches")
+    @PutMapping(path = "/{id}")
+    public CachedName updateName(@PathVariable int id, @RequestBody String name){
+        return namesService.updateName(id, name);
+    }
+
+    @PutMapping("/trans/{oldName}")
     public int changeName(@PathVariable String oldName, @RequestBody String newName){
         return namesService.changeName(newName, oldName);
     }
