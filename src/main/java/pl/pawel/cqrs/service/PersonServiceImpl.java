@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.pawel.cqrs.controllers.form.PersonForm;
 import pl.pawel.cqrs.controllers.view.PersonView;
+import pl.pawel.cqrs.persistence.aggregatestatistic.PersonAggregateStatistics;
 import pl.pawel.cqrs.persistence.repository.PersonEntityRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 import static pl.pawel.cqrs.controllers.view.PersonView.from;
@@ -25,9 +27,26 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonView> getAllPeople() {
+    public List<PersonView> getAllByName(String name) {
+        return personEntityRepository.findByName(name).stream()
+                .map(personEntity -> from(personEntity))
+                .collect(toList());
+    }
+
+    @Override
+    public List<PersonView> getAll() {
         return personEntityRepository.findAll().stream()
                 .map(personEntity -> from(personEntity))
                 .collect(toList());
+    }
+
+    @Override
+    public List<PersonAggregateStatistics> getAverageSalary() {
+        return personEntityRepository.countAverageSalary();
+    }
+
+    @Override
+    public Optional<PersonAggregateStatistics> getAverageSalaryFor(String name) {
+        return personEntityRepository.countAverageSalaryFor(name);
     }
 }
