@@ -1,6 +1,7 @@
 package pl.pawel.cqrs.controllers;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +27,17 @@ public class V1AsynchController {
   public String processAsynch(){
     log.info("start V1AsynchController.processAsynch");
     try {
-      asynchService.asynchProcess();
+      CompletableFuture<String> stringCompletableFuture = asynchService.asyncProcess();
+      log.info("V1AsynchController after calling processAsynch");
+      CompletableFuture<String> stringCompletableFuture1 = asynchService.asyncProcess2Implementation();
+
+      log.info("after call both");
+      /*String s = stringCompletableFuture.get();
+      String s1 = stringCompletableFuture1.get();*/
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    log.info("after call asynchService.asynchProcess()");
+    log.info("after call all");
     return "process ready";
   }
 }
