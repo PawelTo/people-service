@@ -6,4 +6,4 @@ TO DO investigate more about:
 2. EntityGraphs and CascadeType
 3. RequestContextHolder
 4. DelegatingSecrityContextExecutorService, CompletableFuture
-5. Configuration RestTemplate
+5. Configuration RestTemplate with apache commons
