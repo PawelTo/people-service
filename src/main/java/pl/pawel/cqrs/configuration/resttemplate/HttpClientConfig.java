@@ -2,9 +2,9 @@ package pl.pawel.cqrs.configuration.resttemplate;
 
 import org.apache.http.HeaderElement;
 import org.apache.http.HeaderElementIterator;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeaderElementIterator;
@@ -22,7 +22,7 @@ public class HttpClientConfig {
   private static final int SOCKET_TIMEOUT = 60_000;
 
   @Bean
-  public CloseableHttpClient httpClient(final PoolingHttpClientConnectionManager connectionManager) {
+  public HttpClient httpClient(final PoolingHttpClientConnectionManager connectionManager) {
     RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(CONNECT_TIMEOUT).setSocketTimeout(
         SOCKET_TIMEOUT)
         .build();
