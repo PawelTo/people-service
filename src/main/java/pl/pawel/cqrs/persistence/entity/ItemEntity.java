@@ -6,10 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.envers.AuditTable;
-import org.hibernate.envers.Audited;
-import pl.pawel.cqrs.controllers.serializer.DataTimeDeserializer;
-import pl.pawel.cqrs.controllers.serializer.DataTimeSerializer;
+import pl.pawel.cqrs.controllers.serializer.DateTimeDeserializer;
+import pl.pawel.cqrs.controllers.serializer.DateTimeSerializer;
 import pl.pawel.cqrs.domain.ItemCategory;
 
 import javax.persistence.*;
@@ -17,7 +15,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
-import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
 
 @AllArgsConstructor
 //@Audited(targetAuditMode = NOT_AUDITED, withModifiedFlag = true)
@@ -35,8 +32,8 @@ public class ItemEntity {
     @Enumerated(EnumType.STRING)
     private ItemCategory category;
 
-    @JsonDeserialize(using = DataTimeDeserializer.class)
-    @JsonSerialize(using = DataTimeSerializer.class)
+    @JsonDeserialize(using = DateTimeDeserializer.class)
+    @JsonSerialize(using = DateTimeSerializer.class)
     private LocalDateTime creationTimestamp;
     private String description;
     private String name;
