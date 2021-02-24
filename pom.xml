@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<com.github.ben-manes.caffeine.version>2.8.6</com.github.ben-manes.caffeine.version><org.axonframework.version>4.4.3</org.axonframework.version>
+		<org.apache.httpcomponents.version>4.5.13</org.apache.httpcomponents.version>
 		<org.hibernate-envers.version>5.4.23.Final</org.hibernate-envers.version>
 		<org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
 		<org.projectlombok.version>1.18.12</org.projectlombok.version>
@@ -34,6 +35,11 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${org.apache.httpcomponents.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
